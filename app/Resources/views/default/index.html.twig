@@ -1,32 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Welcome to</span>BLOG</h1>
-            </div>
-
+    <div id="container">
+        <h1>USER</h1>
             <form action="{{ path('newPost') }}" method="post">
-                <input required name="id" placeholder="id"><br>
-                <input required name="title" placeholder="title"><br>
-                <input required name="post" placeholder="post"><br>
+                <input name="id" placeholder="id"><br>
+                <input name="name" placeholder="Имя"><br>
+                <input name="lastName" placeholder="Фамилия"><br>
                 <input type="submit">
             </form>
             {% if response is not null %}
-                <h5>
-                    id: {{ response.id }}
-                </h5>
-
-                <h5>
-                    title: {{ response.title }}
-                </h5>
-
-                <h5>
-                    post: {{ response.post }}
-                </h5>
+                id: {{ response.id }}<br>
+                title: {{ response.name }}<br>
+                post: {{ response.lastName }}<br>
             {% endif %}
-        </div>
     </div>
 {% endblock %}
 

@@ -1,26 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-
-            <h2>update</h2>
-            <form action="{{ path('edit_post_handler') }}" method="post">
-                <input required name="id" placeholder="id" value="{{ response.id }}"><br>
-                <input required name="title" placeholder="title" value="{{ response.title }}"><br>
-                <input required name="post" placeholder="post" value="{{ response.post }}"><br>
+    <div id="container">
+        <h1>UPDATE</h1>
+        <form action="{{ path('updatePost') }}" method="post">
+                <input name="id" placeholder="id" value="{{ response.id }}"><br>
+                <input name="name" placeholder="Имя" value="{{ response.name }}"><br>
+                <input name="lastName" placeholder="Фамилия" value="{{ response.lastName }}"><br>
                 <input type="submit">
-            </form>
-
-            <h2>patch</h2>
-            <form action="{{ path('patch_post') }}" method="post">
-                <input required name="id" placeholder="id" value="{{ response.id }}"><br>
-                <input required name="title" placeholder="title" value="{{ response.title }}"><br>
-                <input required name="post" placeholder="post" value="{{ response.post }}"><br>
-                <input type="submit">
-            </form>
-
-        </div>
+        </form>
     </div>
 {% endblock %}
 
@@ -28,7 +16,7 @@
     <style>
         body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
         h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-        h1 { font-size: 36px; }
+        h1 { font-size: 27px; }
         h2 { font-size: 21px; margin-bottom: 1em; }
         p { margin: 0 0 1em 0; }
         a { color: #0000F0; }

@@ -4,145 +4,130 @@
 namespace AppBundle\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
 
 class BlogController extends Controller
 {
 
     /**
-     * @Route("/new", name="newPost")
-     * @Template("default/index.html.twig")
-     * @Method("POST")
-     */
-    public function newPostAction(Request $request){
-        $blog_post = [
-            'id' => $_POST['id'],
-            'title' => $_POST['title'],
-            'post' => $_POST['post']
-        ];
-        $file = fopen("../src/AppBundle/Data/1.txt","w");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
-        }
-        else
-        {
-            fwrite($file, json_encode($blog_post));
-        }
-        echo json_encode($blog_post);
-        fclose($file);
-        return $this->redirectToRoute('homepage');
-    }
-    /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="indexHome")
      * @Template("default/index.html.twig")
      * @Method("GET")
      */
     public function indexAction(Request $request)
     {
-        $file = fopen("../src/AppBundle/Data/1.txt","r+");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
+        $file = fopen("../src/AppBundle/Resources/data/1.txt","r+");
+
+        if(!$file) {
+            echo("Error opening file");
+        } else {
+            $userPost = json_decode(fgets($file));
         }
-        else
-        {
-            $blog_post = json_decode(fgets($file));
-        }
+
         fclose($file);
-        return [
-            'response' => $blog_post
-        ];
+
+        return ['response' => $userPost];
     }
 
     /**
-     * @Route("/edit/{id}", name="edit_post")
-     * @Template("default/edit.html.twig")
-     * METHOD("GET")
+     * @Route("/create", name="newPost")
+     * @Template("default/index.html.twig")
+     * @Method("POST")
      */
-    public function editPostAction(Request $request, $id){
-        $file = fopen("../src/AppBundle/Data/1.txt","r+");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
+    public function createPostAction(Request $request){
+
+        $userPost = [
+                'id' => $_POST['id'],
+                'name' => $_POST['name'],
+                'lastName' => $_POST['lastName']
+        ];
+
+        $file = fopen("../src/AppBundle/Resources/data/1.txt","w");
+
+        if(!$file) {
+            echo("Error opening file");
+        } else {
+            fwrite($file, json_encode($userPost));
         }
-        else
-        {
-            $blog_post = json_decode(fgets($file));
-        }
+        echo json_encode($userPost);
+
         fclose($file);
-        if($blog_post->id == $id){
-            return [
-                'response' => $blog_post
-            ];
+
+        return $this->redirectToRoute('indexHome');
+    }
+
+
+    /**
+     * @Route("/update/{id}", name="update_post")
+     * @Template("default/edit.html.twig")
+     * METHOD("PUT")
+     */
+    public function updatePostAction(Request $request, $id){
+
+        $file = fopen("../src/AppBundle/Resources/data/1.txt","r+");
+
+        if(!$file) {
+            echo("Error opening file");
+        } else {
+            $userPost = json_decode(fgets($file));
+        }
+
+        fclose($file);
+
+        if($userPost->id == $id){
+            return ['response' => $userPost];
         } else {
             echo "failed";
         }
     }
+
     /**
-     * @Route("/patch", name="patch_post")
+     * @Route("/edit_post", name="updatePost")
      * @Template("default/edit.html.twig")
-     * METHOD("PATCH")
+     * METHOD("GET")
      */
-    public function patchPostAction(Request $request){
-        $blog_post = [
-            'id' => $_POST['id'],
-            'title' => $_POST['title'],
-            'post' => $_POST['post']
+    public function updatePostHandlerAction(Request $request){
+
+        $userPost = [
+                'id' => $_POST['id'],
+                'name' => $_POST['name'],
+                'lastName' => $_POST['lastName']
         ];
-        $file = fopen("../src/AppBundle/Data/1.txt","r+");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
+
+        $file = fopen("../src/AppBundle/Resources/data/1.txt","w");
+
+        if(!$file) {
+            echo("Error opening file");
+        } else {
+            fwrite($file, json_encode($userPost));
         }
-        else
-        {
-            fwrite($file, json_encode($blog_post));
-        }
+        echo json_encode($userPost);
+
         fclose($file);
-        return $this->redirectToRoute('homepage');
+
+        return $this->redirectToRoute('indexHome');
     }
-    /**
-     * @Route("/edit_handler", name="edit_post_handler")
-     * @Template("default/edit.html.twig")
-     * METHOD("PUT")
-     */
-    public function editPostHandlerAction(Request $request){
-        $blog_post = [
-            'id' => $_POST['id'],
-            'title' => $_POST['title'],
-            'post' => $_POST['post']
-        ];
-        $file = fopen("../src/AppBundle/Data/1.txt","w");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
-        }
-        else
-        {
-            fwrite($file, json_encode($blog_post));
-        }
-        echo json_encode($blog_post);
-        fclose($file);
-        return $this->redirectToRoute('homepage');
-    }
+
     /**
      * @Route("/delete/{id}", name="delete_post")
      * METHOD("DELETE")
      */
     public function deletePostAction(Request $request,$id){
-        $file = fopen("../src/AppBundle/Data/1.txt","w");
-        if(!$file)
-        {
-            echo("Ошибка открытия файла");
+
+        $file = fopen("../src/AppBundle/Resources/data/1.txt","w");
+
+        if(!$file) {
+            echo("Error opening file");
         }
+
         fclose($file);
-        return $this->redirectToRoute('homepage');
+
+        return $this->redirectToRoute('indexHome');
     }
 }
