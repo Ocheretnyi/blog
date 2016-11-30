@@ -4,9 +4,9 @@
     <div id="container">
         <h1>UPDATE</h1>
         <form action="{{ path('updatePost') }}" method="post">
-                <input  name="id" placeholder="id"> id: {{ response.id }}<br>
-                <input  name="name" placeholder="Имя"> Имя: {{ response.name }}<br>
-                <input  name="lastName" placeholder="Фамилия"> Фамилия: {{ response.lastName }}<br>
+                <input required name="id" placeholder="id"> id: {{ response.id }}<br>
+                <input required name="name" placeholder="Имя"> Имя: {{ response.name }}<br>
+                <input required name="lastName" placeholder="Фамилия"> Фамилия: {{ response.lastName }}<br>
                 <input type="submit">
         </form>
     </div>
