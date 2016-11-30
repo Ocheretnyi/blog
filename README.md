@@ -4,7 +4,7 @@ blog
 GET : /
 
 
-POST : /new
+POST : /
 
 
 PUT : /update/{id}
