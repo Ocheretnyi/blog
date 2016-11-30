@@ -36,7 +36,7 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/create", name="newPost")
+     * @Route("/", name="newPost")
      * @Template("default/index.html.twig")
      * @Method("POST")
      */

@@ -4,10 +4,10 @@ blog
 GET : /
 
 
-POST : /create
+POST : /new
 
 
-PUT : /edit/{id}
+PUT : /update/{id}
 
 
 DELETE : /delete/{id}

@@ -4,15 +4,15 @@
     <div id="container">
         <h1>USER</h1>
             <form action="{{ path('newPost') }}" method="post">
-                <input name="id" placeholder="id"><br>
-                <input name="name" placeholder="Имя"><br>
-                <input name="lastName" placeholder="Фамилия"><br>
-                <input type="submit">
-            </form>
+            <input required name="id" placeholder="id"><br>
+            <input required name="name" placeholder="Имя"><br>
+            <input required name="lastName" placeholder="Фамилия"><br>
+            <input type="submit">
+        </form>
             {% if response is not null %}
                 id: {{ response.id }}<br>
-                title: {{ response.name }}<br>
-                post: {{ response.lastName }}<br>
+                Имя: {{ response.name }}<br>
+                Фамилия: {{ response.lastName }}<br>
             {% endif %}
     </div>
 {% endblock %}
